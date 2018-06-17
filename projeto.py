@@ -1,16 +1,32 @@
 # -*- coding: utf-8 -*-
+import simulador_mvn
+
+def executar(arquivo):#motor de eventos da execucao de programas
+    print('oi')
+
+def rotina_end():
+    print('Fim')
 
 #Interpretador de comandos
 def interpretador(comando, arquivo):
     #motor de eventos de input de comandos
     if (comando == '$DIR'):
+        #imprimir so os do id
         file_object = open('programas.txt', 'r+')
         print('Lista de programas disponiveis:')
         for line in file_object:
            print line
-    if (comando == '$'):
-        print('Lista de programas disponiveis:')
+    if (comando == '$DEL'):
+        print('\nDeletando programa')
+        #apagar programa importar os e procurar
 
+
+    if (comando == '$END'):
+        print('Fim do programa')
+        rotina_end()
+    if (comando == '$RUN'):
+        print('O programa sera executado')
+        executar(arquivo)
 
 def main():
     print('')
@@ -31,10 +47,12 @@ def main():
     print('1 para novo usuario')
     print('2 para usuario em lista de usuarios')
     opcao = int(input() )
+    # por id de usuario pra cada novo
+    # arquivo: id_nomedoarquivo
     if (opcao==1):
         print('')
         new_user = raw_input('Escolha o nome de seu usuario: ')
-        file_object.write('user')
+        file_object.write(new_user)
         print('Login concluido com sucesso')
     else:
         print('')
@@ -60,5 +78,7 @@ def main():
         arquivo = raw_input('Digite o nome do arquivo: ')
         interpretador(comando, arquivo)
     interpretador(comando, '')
+
+    #ter string com nome da pessoa append nome do arquivo : ja sei o nome do path
 
 main()
