@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import simulador_mvn
+import pandas as pd
+from tabulate import tabulate
+import numpy as np
 
 def executar(arquivo):#motor de eventos da execucao de programas
     print('oi')
@@ -8,18 +11,23 @@ def rotina_end():
     print('Fim')
 
 #Interpretador de comandos
-def interpretador(comando, arquivo):
+def interpretador(comando, user):
     #motor de eventos de input de comandos
+
+    if (comando =='$DEL' or comando == '$RUN'):
+        arquivo = raw_input('Digite o nome do arquivo: ')
+
     if (comando == '$DIR'):
-        #imprimir so os do id
-        file_object = open('programas.txt', 'r+')
-        print('Lista de programas disponiveis:')
-        for line in file_object:
-           print line
+        comandos_df = pd.read_csv('arquivos.csv')
+        user_archives = comandos_df.loc[comandos_df['usuario']==user]
+        print(tabulate(user_archives, headers='keys', tablefmt='psql'))
+
     if (comando == '$DEL'):
         print('\nDeletando programa')
-        #apagar programa importar os e procurar
+        comandos_df = pd.read_csv('arquivos.csv')
+        user_archives = comandos_df.loc[comandos_df['usuario']==user].
 
+        #apagar programa importar os e procurar
 
     if (comando == '$END'):
         print('Fim do programa')
@@ -36,30 +44,30 @@ def main():
     print('-------------------------------------------------------------')
     print('')
     print(' ---Faca seu login---')
-    file_object  = open('usuarios.txt', 'r+')
     print('Lista de usuarios ja cadastrados:')
-    lines = file_object.readline()
-    for line in file_object:
-       print line
+    users_df = pd.read_csv('usuarios.csv')
+    print(tabulate(users_df, headers='keys', tablefmt='psql'))
+
     print('')
     print('')
     print('Opcoes:')
     print('1 para novo usuario')
     print('2 para usuario em lista de usuarios')
-    opcao = int(input() )
-    # por id de usuario pra cada novo
-    # arquivo: id_nomedoarquivo
+    opcao = int(input())
+
     if (opcao==1):
         print('')
-        new_user = raw_input('Escolha o nome de seu usuario: ')
-        file_object.write(new_user)
-        print('Login concluido com sucesso')
+        print('Escolha o nome de usuario:')
+
     else:
         print('')
-        user = raw_input('Nome de usuário: ')
-        file_object.write(user)
-    file_object.close()
-    print('')
+        print('Nome de usuário:')
+    user = raw_input('') #variavel do nome do usuario
+    if (opcao==1):
+        users_df.loc[users_df.index.size] = [user]
+        users_df.to_csv('usuarios.csv', index=False)
+    print('Login concluido com sucesso')
+
     print('')
     print('')
     print('')
@@ -74,10 +82,7 @@ def main():
     while(comando != '$DIR' and comando!='$DEL' and comando!='$RUN' and comando!='$END'):
         print('Comando nao encontrado. \n')
         comando = raw_input('Digite seu comando: ')
-    if (comando =='$DEL' or comando == '$RUN'):
-        arquivo = raw_input('Digite o nome do arquivo: ')
-        interpretador(comando, arquivo)
-    interpretador(comando, '')
+    interpretador(comando, user)
 
     #ter string com nome da pessoa append nome do arquivo : ja sei o nome do path
 

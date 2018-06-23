@@ -4,11 +4,12 @@ def montador_passo1(arquivo):
     area = 0
     file = open(arquivo, 'r')
     linha = file.readline() #le uma linha
-    #checa se tem rotulo (procurar por :)
-    if (rotulo):
+    pseudo = False
+
+    if (linha.find(':')!=-1): #existe o simbolo : na linha, entao há rotulo
         #checar se ja ta na tabela de simbolos -> erro
         #incluir na tabela de simbolos
-
+        pseudo = False
     #consulta na tabela de instruções se é pseudo
     if (pseudo):
         tratamento_pseudo()
@@ -34,11 +35,6 @@ def montador_passo2(arquivo, area):
         tamanho = determinar_tamanho()
         ci = ci + tamanho
         reserva_area(area)
-
-
-
-
-
 
 
 
