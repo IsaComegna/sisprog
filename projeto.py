@@ -21,20 +21,41 @@ def interpretador(comando, user):
         comandos_df = pd.read_csv('arquivos.csv')
         user_archives = comandos_df.loc[comandos_df['usuario']==user]
         print(tabulate(user_archives, headers='keys', tablefmt='psql'))
+        lista_comandos(user)
 
     if (comando == '$DEL'):
         print('\nDeletando programa')
         comandos_df = pd.read_csv('arquivos.csv')
-        user_archives = comandos_df.loc[comandos_df['usuario']==user].
-
-        #apagar programa importar os e procurar
+        user_files = comandos_df.loc[comandos_df['usuario']==user]
+        comandos_df.loc[user_files.loc[comandos_df['arquivo']==arquivo].index.values]=0
+        comandos_df.to_csv('arquivos.csv', index=False)
+        lista_comandos(user)
 
     if (comando == '$END'):
         print('Fim do programa')
-        rotina_end()
+        main()
     if (comando == '$RUN'):
         print('O programa sera executado')
         executar(arquivo)
+
+
+def lista_comandos(user):
+    print('')
+    print('')
+    print('')
+    print('Lista de comandos disponiveis')
+    print('$DIR: informa os seus programas disponiveis')
+    print('$DEL: remove do sistema um programa do usuario')
+    print('$RUN: inicia a execucao de um dos programas')
+    print('$END: encerra a operacao do SO e reporta informacoes coletadas')
+    print('')
+    print('')
+    comando = raw_input('Digite seu comando: ')
+    while(comando != '$DIR' and comando!='$DEL' and comando!='$RUN' and comando!='$END'):
+        print('Comando nao encontrado. \n')
+        comando = raw_input('Digite seu comando: ')
+    interpretador(comando, user)
+
 
 def main():
     print('')
@@ -67,23 +88,6 @@ def main():
         users_df.loc[users_df.index.size] = [user]
         users_df.to_csv('usuarios.csv', index=False)
     print('Login concluido com sucesso')
-
-    print('')
-    print('')
-    print('')
-    print('Lista de comandos disponiveis')
-    print('$DIR: informa os seus programas disponiveis')
-    print('$DEL: remove do sistema um programa do usuario')
-    print('$RUN: inicia a execucao de um dos programas')
-    print('$END: encerra a operacao do SO e reporta informacoes coletadas')
-    print('')
-    print('')
-    comando = raw_input('Digite seu comando: ')
-    while(comando != '$DIR' and comando!='$DEL' and comando!='$RUN' and comando!='$END'):
-        print('Comando nao encontrado. \n')
-        comando = raw_input('Digite seu comando: ')
-    interpretador(comando, user)
-
-    #ter string com nome da pessoa append nome do arquivo : ja sei o nome do path
+    lista_comandos(user)
 
 main()
