@@ -1,0 +1,16 @@
+Mnemonico,Codigo
+JP,01
+JZ,02
+LV,03
++,04
+-,05
+*,06
+/,07
+LD,08
+MM,09
+SC,0A
+OS,0B
+IO,0C
+RS,0D
+GD,0E
+PD,0F
