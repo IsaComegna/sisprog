@@ -1,0 +1,20 @@
+@ f000
+NEG
+    PD 0002
+    + UM
+    JZ ACAB
+    JP NEG
+POS
+    PD 0002
+    - UM
+    JZ ACAB
+    JP POS
+INIC
+    GD 0001
+    JZ ACAB
+    JN NEG
+    JP POS
+ACAB
+    SO 0000
+UM K 1
+    # INIC 

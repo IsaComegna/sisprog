@@ -1,0 +1,7 @@
+@ 500
+INIC
+    LD VAR
+    PD 0002
+    SO 0000
+VAR K 99
+    # INIC

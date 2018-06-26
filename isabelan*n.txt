@@ -1,0 +1,18 @@
+@ 1000
+MULT
+    MM N2
+    * N2
+    PD 0002
+    RS MULT
+INIC
+    GD 0001
+    SC MULT
+    JP DNV
+DNV
+    GD 0001
+    - UM
+    JZ INIC
+    SO 0000
+N2 K 0
+UM K 1
+    # INIC
