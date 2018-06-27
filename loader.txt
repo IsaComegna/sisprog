@@ -1,12 +1,12 @@
 @ 0000
 INIC
     0E 00
-    06 CEM
-    09 PC
+    06 64
+    09 00
     0E 00
-    04 PC
+    04 00
     0F 00
-    09 PC
+    09 00
     0E 00
     09 COUNT
     00 DADO
@@ -14,7 +14,7 @@ DADO
     0E 00
     0F 001
     08 COUNT
-    05 UM
+    05 01
     09 COUNT
     01 EXEC
     00 DADO
@@ -26,8 +26,5 @@ EXEC
     0E 00
     0F 01
     0D INIC
-CEM K 100
-PC K 0
 COUNT K 0
-UM K 1
     # INIC

@@ -4,11 +4,49 @@ import pandas as pd
 from tabulate import tabulate
 import numpy as np
 
-def executar(arquivo):#motor de eventos da execucao de programas
-    print('oi')
+global mem
+ci = 0
+ac = 0 #inicia em 0
 
-def rotina_end():
-    print('Fim')
+
+def executar(arquivo):#motor de eventos da execucao de programas
+    arquivo_assembly = montador_passo1(arquivo)
+    simulador_mvn(arquivo_assembly)
+
+def carrega_loader():
+    file = open("loader.txt", 'r')
+    arroba = file.readline() #le linha de @
+    inic = file.readline() #le uma linha
+    linha = file.readline() #le uma linha
+    i = 0
+    linha = file.readline() #le uma linha
+    while (linha != "DADO"):
+        if (linha[2:4] == "COUNT"):
+            mem[i] = 31
+        elif (linha[2:4] == "DADO"):
+            mem[i] = 15
+        else:
+            mem[i] = linha[:2]
+            mem[i+1] = linha[2:4]
+        linha = file.readline() #le uma linha
+    linha = file.readline() #le uma linha
+    while (linha != "EXEC"):
+        if (linha[2:4] == "COUNT"):
+            mem[i] = 31
+        elif (linha[2:4] == "EXEC"):
+            mem[i] = 36
+        else:
+            mem[i] = linha[:2]
+            mem[i+1] = linha[2:4]
+        linha = file.readline() #le uma linha
+    linha = file.readline() #le uma linha
+    while (linha != "CEM"):
+        if (linha[2:4] == "INIC"):
+            mem[i] = 0
+        else:
+            mem[i] = linha[:2]
+            mem[i+1] = linha[2:4]
+        linha = file.readline() #le uma linha
 
 #Interpretador de comandos
 def interpretador(comando, user):
@@ -36,12 +74,12 @@ def interpretador(comando, user):
         main()
     if (comando == '$RUN'):
         print('O programa sera executado')
+        lista_comandos(user)
+        carrega_loader()
         executar(arquivo)
 
 
 def lista_comandos(user):
-    print('')
-    print('')
     print('')
     print('Lista de comandos disponiveis')
     print('$DIR: informa os seus programas disponiveis')
